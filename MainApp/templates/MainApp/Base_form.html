@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base_form</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Name of task</th>
+        <th>Start date</th>
+        <th>Finish date</th>
+        <th>Responsible person</th>
+    </tr>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.start_date }}</td>
+            <td>{{ task.finish_date }}</td>
+            <td>{{ task.person.name}}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
