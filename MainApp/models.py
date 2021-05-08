@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Person(models.Model):
-    name = models.CharField(max_length=64, unique=True)
+    full_name = models.CharField(max_length=64, unique=True)
     position = models.CharField(max_length=64)
 
 
