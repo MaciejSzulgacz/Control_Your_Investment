@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from .models import Task
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.forms.widgets import SelectDateWidget
 
 
@@ -33,3 +33,9 @@ class DeleteTaskView(View):
         task = Task.objects.get(id=my_id)
         task.delete()
         return redirect("/")
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    fields = ['name', 'start_date', 'finish_date', 'person']
+    template_name_suffix = '_update_form'

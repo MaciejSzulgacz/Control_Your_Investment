@@ -35,10 +35,13 @@ tr:nth-child(even) {
             <td>{{ task.name }}</td>
             <td>{{ task.start_date }}</td>
             <td>{{ task.finish_date }}</td>
-            <td>{{ task.person.name}}</td>
+            <td>{{ task.person.full_name}}</td>
             <td>
                 <button type="button">
-                <a href="http://localhost:8000/delete-task/{{ task.id }}">Delete Task</a>
+                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete Task</a>
+                </button>
+                <button type="button">
+                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit Task</a>
                 </button>
             </td>
         </tr>
