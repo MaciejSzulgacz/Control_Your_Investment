@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from MainApp.views import BaseView, TaskCreateView, DeleteTaskView, TaskUpdateView
+from MainApp import views as ex_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', BaseView.as_view()),
-    path('add-task/', TaskCreateView.as_view(), name="add-task"),
-    path('delete-task/<int:my_id>/', DeleteTaskView.as_view()),
-    path('edit-task/<pk>', TaskUpdateView.as_view(), name="edit-task"),
+    path('', ex_views.BaseView.as_view(), name="base"),
+    path('add-task/', ex_views.TaskCreateView.as_view(), name="add-task"),
+    path('delete-task/<int:my_id>/', ex_views.DeleteTaskView.as_view(), name="delete-task"),
+    path('edit-task/<pk>', ex_views.TaskUpdateView.as_view(), name="edit-task"),
+    path('add-machine/', ex_views.MachineCreateView.as_view(), name="add-machine"),
 ]

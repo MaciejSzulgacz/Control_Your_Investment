@@ -28,6 +28,7 @@ tr:nth-child(even) {
         <th>Start date</th>
         <th>Finish date</th>
         <th>Responsible person</th>
+        <th>Machines</th>
         <th>Actions</th>
     </tr>
     {% for task in tasks %}
@@ -35,18 +36,24 @@ tr:nth-child(even) {
             <td>{{ task.name }}</td>
             <td>{{ task.start_date }}</td>
             <td>{{ task.finish_date }}</td>
-            <td>{{ task.person.full_name}}</td>
+            <td>{{ task.person.full_name }}</td>
+            <td>
+                {% for machine in task.machine.all %}
+                    {{ machine.machine_model }}
+                {% endfor %}
+            </td>
             <td>
                 <button type="button">
-                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete Task</a>
+                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit Task</a>
                 </button>
                 <button type="button">
-                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit Task</a>
+                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete Task</a>
                 </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button><br>
+<br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button>
+<button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button><br>
 </body>
 </html>

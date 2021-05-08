@@ -2,7 +2,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from .models import Task
+from .models import Machine, Task
 from django.views.generic import CreateView, UpdateView
 from django.forms.widgets import SelectDateWidget
 
@@ -37,5 +37,12 @@ class DeleteTaskView(View):
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = ['name', 'start_date', 'finish_date', 'person']
+    fields = ['name', 'start_date', 'finish_date', 'person', 'machine']
     template_name_suffix = '_update_form'
+    success_url = reverse_lazy('base')
+
+
+class MachineCreateView(CreateView):
+    model = Machine
+    fields = ['machine_model', 'description']
+    success_url = reverse_lazy('add-machine')
