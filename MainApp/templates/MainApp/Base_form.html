@@ -39,21 +39,76 @@ tr:nth-child(even) {
             <td>{{ task.person.full_name }}</td>
             <td>
                 {% for machine in task.machine.all %}
-                    {{ machine.machine_model }}
+                <li>{{ machine.machine_model }}</li>
                 {% endfor %}
             </td>
             <td>
                 <button type="button">
-                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit Task</a>
+                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit</a>
                 </button>
                 <button type="button">
-                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete Task</a>
+                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete</a>
                 </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button>
-<button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button><br>
+<br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button><br><br>
+<table>
+    <tr>
+        <th>Name of person</th>
+        <th>Position</th>
+        <th>Task</th>
+        <th>Actions</th>
+    </tr>
+    {% for person in persons %}
+        <tr>
+            <td>{{ person.full_name }}</td>
+            <td>{{ person.position }}</td>
+            <td>
+                {% for task in person.task_set.all %}
+                <li>{{ task.name }}</li>
+                {% endfor %}
+            </td>
+            <td>
+                <button type="button">
+                <a href="http://localhost:8000/edit-person/{{ person.id }}">Edit</a>
+                </button>
+                <button type="button">
+                <a href="http://localhost:8000/person-task/{{ person.id }}/">Delete</a>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><button type="button"><a href="http://localhost:8000/add-person/">Add Person</a></button><br><br>
+<table>
+    <tr>
+        <th>Machine model</th>
+        <th>Description</th>
+        <th>Task</th>
+        <th>Actions</th>
+    </tr>
+    {% for machine in machines %}
+        <tr>
+            <td>{{ machine.machine_model }}</td>
+            <td>{{ machine.description }}</td>
+            <td>
+                {% for task in machine.task_set.all %}
+                <li>{{ task.name }}</li>
+                {% endfor %}
+            </td>
+            <td>
+                <button type="button">
+                <a href="http://localhost:8000/edit-machine/{{ machine.id }}">Edit</a>
+                </button>
+                <button type="button">
+                <a href="http://localhost:8000/delete-machine/{{ machine.id }}/">Delete</a>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button>
 </body>
 </html>

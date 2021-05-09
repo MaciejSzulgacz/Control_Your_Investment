@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ex_views.BaseView.as_view(), name="base"),
     path('add-task/', ex_views.TaskCreateView.as_view(), name="add-task"),
-    path('delete-task/<int:my_id>/', ex_views.DeleteTaskView.as_view(), name="delete-task"),
+    path('delete-task/<int:my_id>/', ex_views.TaskDeleteView.as_view(), name="delete-task"),
     path('edit-task/<pk>', ex_views.TaskUpdateView.as_view(), name="edit-task"),
     path('add-machine/', ex_views.MachineCreateView.as_view(), name="add-machine"),
+    path('delete-machine/<int:my_id>/', ex_views.MachineDeleteView.as_view(), name="delete-machine"),
+    path('edit-machine/<pk>', ex_views.MachineUpdateView.as_view(), name="edit-machine"),
 ]

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update machine</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save"><br>
+        <br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
+    </form>
+</body>
+</html>

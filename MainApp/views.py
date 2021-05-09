@@ -1,8 +1,7 @@
-# from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from .models import Machine, Task
+from .models import Machine, Person, Task
 from django.views.generic import CreateView, UpdateView
 from django.forms.widgets import SelectDateWidget
 
@@ -12,7 +11,9 @@ class BaseView(View):
 
     def get(self, request, *args, **kwargs):
         tasks = Task.objects.all()
-        return render(request, self.template_name, {"tasks": tasks})
+        persons = Person.objects.all()
+        machines = Machine.objects.all()
+        return render(request, self.template_name, {"tasks": tasks, "persons": persons, "machines": machines})
 
 
 class TaskCreateView(CreateView):
@@ -27,8 +28,7 @@ class TaskCreateView(CreateView):
         return form
 
 
-class DeleteTaskView(View):
-
+class TaskDeleteView(View):
     def get(self, request, my_id, *args, **kwargs):
         task = Task.objects.get(id=my_id)
         task.delete()
@@ -46,3 +46,17 @@ class MachineCreateView(CreateView):
     model = Machine
     fields = ['machine_model', 'description']
     success_url = reverse_lazy('add-machine')
+
+
+class MachineDeleteView(View):
+    def get(self, request, my_id, *args, **kwargs):
+        machine = Machine.objects.get(id=my_id)
+        machine.delete()
+        return redirect("/")
+
+
+class MachineUpdateView(UpdateView):
+    model = Machine
+    fields = ['machine_model', 'description']
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('base')
