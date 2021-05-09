@@ -60,3 +60,23 @@ class MachineUpdateView(UpdateView):
     fields = ['machine_model', 'description']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('base')
+
+
+class PersonCreateView(CreateView):
+    model = Person
+    fields = ['full_name', 'position']
+    success_url = reverse_lazy('add-person')
+
+
+class PersonDeleteView(View):
+    def get(self, request, my_id, *args, **kwargs):
+        person = Person.objects.get(id=my_id)
+        person.delete()
+        return redirect("/")
+
+
+class PersonUpdateView(UpdateView):
+    model = Person
+    fields = ['full_name', 'position']
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('base')

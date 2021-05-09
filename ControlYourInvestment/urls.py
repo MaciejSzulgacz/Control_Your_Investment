@@ -27,4 +27,7 @@ urlpatterns = [
     path('add-machine/', ex_views.MachineCreateView.as_view(), name="add-machine"),
     path('delete-machine/<int:my_id>/', ex_views.MachineDeleteView.as_view(), name="delete-machine"),
     path('edit-machine/<pk>', ex_views.MachineUpdateView.as_view(), name="edit-machine"),
+    path('add-person/', ex_views.PersonCreateView.as_view(), name="add-person"),
+    path('delete-person/<int:my_id>/', ex_views.PersonDeleteView.as_view(), name="delete-person"),
+    path('edit-person/<pk>', ex_views.PersonUpdateView.as_view(), name="edit-person"),
 ]
