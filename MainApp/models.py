@@ -20,7 +20,7 @@ class Machine(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=128)
     start_date = models.DateField()
-    finish_date = models.DateField(blank=True)
+    finish_date = models.DateField(null=True, default=None)
     person = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
     machine = models.ManyToManyField(Machine, related_name='machine')
 

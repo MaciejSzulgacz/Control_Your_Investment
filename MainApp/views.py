@@ -2,8 +2,10 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from .models import Machine, Person, Task
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, FormView, UpdateView, RedirectView
 from django.forms.widgets import SelectDateWidget
+from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm
 
 
 class BaseView(View):
@@ -80,3 +82,25 @@ class PersonUpdateView(UpdateView):
     fields = ['full_name', 'position']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('base')
+
+
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = "MainApp/login.html"
+    success_url = reverse_lazy('base')
+
+    def form_valid(self, form):
+        cd = form.cleaned_data
+        username = cd['username']
+        password = cd['password']
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+class LogoutView(RedirectView):
+    url = reverse_lazy('base')
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super().get(request)

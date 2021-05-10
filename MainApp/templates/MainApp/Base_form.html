@@ -22,6 +22,14 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
+    <header>
+        {% if request.user.is_authenticated %}
+            <p>Jesteś zalogowany jako: {{ request.user.username }}</p>
+            <a href="{% url 'logout' %}">Wyloguj się.</a><br><br>
+        {% else %}
+            <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
+        {% endif %}
+    </header>
 <table>
     <tr>
         <th>Name of task</th>

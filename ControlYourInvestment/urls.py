@@ -30,4 +30,6 @@ urlpatterns = [
     path('add-person/', ex_views.PersonCreateView.as_view(), name="add-person"),
     path('delete-person/<int:my_id>/', ex_views.PersonDeleteView.as_view(), name="delete-person"),
     path('edit-person/<pk>', ex_views.PersonUpdateView.as_view(), name="edit-person"),
+    path('login/', ex_views.LoginView.as_view(), name="login"),
+    path('logout/', ex_views.LogoutView.as_view(), name="logout"),
 ]
