@@ -5,6 +5,7 @@ from .models import Machine, Person, Task
 from django.views.generic import CreateView, FormView, UpdateView, RedirectView
 from django.forms.widgets import SelectDateWidget
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import LoginForm
 
 
@@ -18,7 +19,8 @@ class BaseView(View):
         return render(request, self.template_name, {"tasks": tasks, "persons": persons, "machines": machines})
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
     model = Task
     fields = ['name', 'start_date', 'finish_date', 'person']
     success_url = reverse_lazy('add-task')
@@ -30,14 +32,17 @@ class TaskCreateView(CreateView):
         return form
 
 
-class TaskDeleteView(View):
+class TaskDeleteView(LoginRequiredMixin, View):
+    login_url = '/login/'
+
     def get(self, request, my_id, *args, **kwargs):
         task = Task.objects.get(id=my_id)
         task.delete()
         return redirect("/")
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
     model = Task
     fields = ['name', 'start_date', 'finish_date', 'person', 'machine']
     template_name_suffix = '_update_form'
