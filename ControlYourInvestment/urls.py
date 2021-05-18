@@ -37,8 +37,8 @@ urlpatterns = [
     path('logout/', ex_views.LogoutView.as_view(), name="logout"),
     path('add-image/', ex_views.ImageCreateView.as_view(), name="add-image"),
     path('task-details/<int:my_id>/', ex_views.DetailsTaskView.as_view(), name="details-task"),
-    path('person-list', ex_views.PersonListView.as_view(), name="person-list"),
-    path('machine-list', ex_views.MachineListView.as_view(), name="machine-list"),
+    path('person-list/', ex_views.PersonListView.as_view(), name="person-list"),
+    path('machine-list/', ex_views.MachineListView.as_view(), name="machine-list"),
 ]
 
 if settings.DEBUG:

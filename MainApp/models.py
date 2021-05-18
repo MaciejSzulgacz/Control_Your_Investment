@@ -31,7 +31,7 @@ class Task(models.Model):
 
 class Image(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, default=True)
-    image = models.ImageField(upload_to='./images/')
+    upload = models.ImageField(upload_to='./images/')
 
 
 class Subcontractor(models.Model):

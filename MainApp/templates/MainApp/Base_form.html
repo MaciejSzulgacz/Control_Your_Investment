@@ -30,8 +30,12 @@ tr:nth-child(even) {
             <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
         {% endif %}
     </header>
+<button type="button"><a href="http://localhost:8000">List of tasks</a></button>
+<button type="button"><a href="http://localhost:8000/person-list/">List of persons</a></button>
+<button type="button"><a href="http://localhost:8000/machine-list/">List of machines</a></button><br><br>
 <table>
     <tr>
+        <th>No.</th>
         <th>Name of task</th>
         <th>Start date</th>
         <th>Finish date</th>
@@ -42,7 +46,8 @@ tr:nth-child(even) {
     </tr>
     {% for task in tasks %}
         <tr>
-            <td><a href="http://localhost:8000/task-details/{{ task.id }}">{{ task.name }}</td>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="http://localhost:8000/task-details/{{ task.id }}">{{ task.name }}</a></td>
             <td>{{ task.start_date }}</td>
             <td>{{ task.finish_date }}</td>
             <td>{{ task.person.full_name }}</td>
@@ -67,61 +72,5 @@ tr:nth-child(even) {
     {% endfor %}
 </table>
 <br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button><br><br>
-<table>
-    <tr>
-        <th>Name of person</th>
-        <th>Position</th>
-        <th>Tasks</th>
-        <th>Actions</th>
-    </tr>
-    {% for person in persons %}
-        <tr>
-            <td>{{ person.full_name }}</td>
-            <td>{{ person.position }}</td>
-            <td>
-                {% for task in person.task_set.all %}
-                <li>{{ task.name }}</li>
-                {% endfor %}
-            </td>
-            <td>
-                <button type="button">
-                <a href="http://localhost:8000/edit-person/{{ person.id }}">Edit</a>
-                </button>
-                <button type="button">
-                <a href="http://localhost:8000/delete-person/{{ person.id }}/">Delete</a>
-                </button>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
-<br><button type="button"><a href="http://localhost:8000/add-person/">Add Person</a></button><br><br>
-<table>
-    <tr>
-        <th>Machine model</th>
-        <th>Description</th>
-        <th>Tasks</th>
-        <th>Actions</th>
-    </tr>
-    {% for machine in machines %}
-        <tr>
-            <td>{{ machine.machine_model }}</td>
-            <td>{{ machine.description }}</td>
-            <td>
-                {% for task in machine.task_set.all %}
-                    <li>{{ task.name }}</li>
-                {% endfor %}
-            </td>
-            <td>
-                <button type="button">
-                <a href="http://localhost:8000/edit-machine/{{ machine.id }}">Edit</a>
-                </button>
-                <button type="button">
-                <a href="http://localhost:8000/delete-machine/{{ machine.id }}/">Delete</a>
-                </button>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
-<br><button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button>
 </body>
 </html>

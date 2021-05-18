@@ -30,8 +30,12 @@ tr:nth-child(even) {
             <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
         {% endif %}
     </header>
+<button type="button"><a href="http://localhost:8000">List of tasks</a></button>
+<button type="button"><a href="http://localhost:8000/person-list/">List of persons</a></button>
+<button type="button"><a href="http://localhost:8000/machine-list/">List of machines</a></button><br><br>
 <table>
     <tr>
+        <td>No.</td>
         <th>Machine model</th>
         <th>Description</th>
         <th>Tasks</th>
@@ -39,6 +43,7 @@ tr:nth-child(even) {
     </tr>
     {% for machine in machines %}
         <tr>
+            <td>{{ forloop.counter }}</td>
             <td>{{ machine.machine_model }}</td>
             <td>{{ machine.description }}</td>
             <td>

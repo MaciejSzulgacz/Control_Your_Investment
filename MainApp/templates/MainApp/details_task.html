@@ -9,8 +9,14 @@
     Start date: {{ task.start_date }}<br>
     Finish date: {{ task.finish_date }}<br>
     Person: {{ task.person }}<br>
-    Machine: {{ task.machine }}<br>
-    Images: <img src="{{ media_url }}{{ task.image_set }}"><br>
-    <br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
+    Machines:
+    {% for machine in task.machine.all %}
+        {{ machine.machine_model }}
+    {% endfor %}
+    <br>Images:<br>
+    {% for image in task.image_set.all %}
+        <img src="{{ media_url }}{{ image.upload.url }}" width="200" height="200">
+    {% endfor %}
+    <br><br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
 </body>
 </html>

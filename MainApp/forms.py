@@ -35,10 +35,3 @@ class TaskForm(forms.Form):
     finish_date = models.DateField(validators=[validate_date], null=True, default=None)
     person = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
     machine = models.ManyToManyField(Machine, related_name='machine')
-
-    # class Meta:
-    #     model = Task
-    #     fields = ['name', 'start_date', 'finish_date', 'person', 'machine']
-
-
-
