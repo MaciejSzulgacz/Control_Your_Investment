@@ -23,9 +23,15 @@ class Task(models.Model):
     finish_date = models.DateField(null=True, default=None)
     person = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
     machine = models.ManyToManyField(Machine, related_name='machine')
+    done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+
+class Image(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, default=True)
+    image = models.ImageField(upload_to='./images/')
 
 
 class Subcontractor(models.Model):

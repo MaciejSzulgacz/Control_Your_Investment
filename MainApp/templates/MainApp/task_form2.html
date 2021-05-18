@@ -7,7 +7,7 @@
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <input type="submit" value="Add"><br>
         <br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
     </form>

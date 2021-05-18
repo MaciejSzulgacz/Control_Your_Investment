@@ -1,12 +1,12 @@
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
-from .models import Machine, Person, Task
+from .models import Machine, Person, Task, Image
 from django.views.generic import CreateView, FormView, UpdateView, RedirectView
 from django.forms.widgets import SelectDateWidget
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import LoginForm
+from .forms import LoginForm, TaskForm
 
 
 class BaseView(View):
@@ -31,6 +31,18 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         form.fields['finish_date'].widget = SelectDateWidget()
         return form
 
+# class TaskCreateView(View):
+#     template_name = 'MainApp/task_form2.html'
+#     form_class = TaskForm
+#
+#     def get(self, request, *args, **kwargs):
+#         form = self.form_class()
+#         return render(request, self.template_name, {"form": form})
+#
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST)
+#         return render(request, self.template_name, {"form": form})
+
 
 class TaskDeleteView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -44,7 +56,7 @@ class TaskDeleteView(LoginRequiredMixin, View):
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Task
-    fields = ['name', 'start_date', 'finish_date', 'person', 'machine']
+    fields = ['name', 'start_date', 'finish_date', 'person', 'machine', 'done']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('base')
 
@@ -109,3 +121,57 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super().get(request)
+
+
+class ImageCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    model = Image
+    fields = ['task', 'image']
+    success_url = reverse_lazy('add-image')
+
+
+class DetailsTaskView(View):
+    template_name = 'MainApp/details_task.html'
+
+    def get(self, request, my_id, *args, **kwargs):
+        task = Task.objects.get(id=my_id)
+        return render(request, self.template_name, {"task": task})
+
+# class ImageCreateView(LoginRequiredMixin, CreateView):
+#     template_name = 'MainApp/image_form.html'
+#     login_url = '/login/'
+#     success_url = reverse_lazy('add-image')
+#
+#     def get(self, request, *args, **kwargs):
+#         return render(request, self.template_name)
+#
+#     def post(self, request, *args, **kwargs):
+#         name = request.POST.get('name')
+#         task = request.POST.get('task')
+#         image = request.POST.get('image')
+#         tasks = Task.objects.get(name=task)
+#         if not name:
+#             message = "Enter the name."
+#             return render(request, self.template_name, {'message': message})
+#         if Image.objects.filter(name=name):
+#             message = "Name is already used."
+#             return render(request, self.template_name, {'message': message})
+#         if all([name, task, image]):
+#             Image.objects.create(name=name, task=tasks, image=image)
+#         return render(request, self.template_name, {"tasks": tasks})
+
+
+class PersonListView(View):
+    template_name = "MainApp/Person_list.html"
+
+    def get(self, request, *args, **kwargs):
+        persons = Person.objects.all()
+        return render(request, self.template_name, {"persons": persons})
+
+
+class MachineListView(View):
+    template_name = "MainApp/Machine_list.html"
+
+    def get(self, request, *args, **kwargs):
+        machines = Machine.objects.all()
+        return render(request, self.template_name, {"machines": machines})

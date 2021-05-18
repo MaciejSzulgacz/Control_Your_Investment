@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task details</title>
+</head>
+<body>
+    Name: {{ task.name }}<br>
+    Start date: {{ task.start_date }}<br>
+    Finish date: {{ task.finish_date }}<br>
+    Person: {{ task.person }}<br>
+    Machine: {{ task.machine }}<br>
+    Images: <img src="{{ media_url }}{{ task.image_set }}"><br>
+    <br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
+</body>
+</html>

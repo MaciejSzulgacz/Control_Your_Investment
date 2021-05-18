@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base_form</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+    <header>
+        {% if request.user.is_authenticated %}
+            <p>Jesteś zalogowany jako: {{ request.user.username }}</p>
+            <a href="{% url 'logout' %}">Wyloguj się.</a><br><br>
+        {% else %}
+            <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
+        {% endif %}
+    </header>
+<table>
+    <tr>
+        <th>Name of person</th>
+        <th>Position</th>
+        <th>Tasks</th>
+        <th>Actions</th>
+    </tr>
+    {% for person in persons %}
+        <tr>
+            <td>{{ person.full_name }}</td>
+            <td>{{ person.position }}</td>
+            <td>
+                {% for task in person.task_set.all %}
+                <li>{{ task.name }}</li>
+                {% endfor %}
+            </td>
+            <td>
+                <button type="button">
+                <a href="http://localhost:8000/edit-person/{{ person.id }}">Edit</a>
+                </button>
+                <button type="button">
+                <a href="http://localhost:8000/delete-person/{{ person.id }}/">Delete</a>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><button type="button"><a href="http://localhost:8000/add-person/">Add Person</a></button><br><br>
+</body>
+</html>

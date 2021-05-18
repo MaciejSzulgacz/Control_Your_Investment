@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base_form</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+    <header>
+        {% if request.user.is_authenticated %}
+            <p>Jesteś zalogowany jako: {{ request.user.username }}</p>
+            <a href="{% url 'logout' %}">Wyloguj się.</a><br><br>
+        {% else %}
+            <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
+        {% endif %}
+    </header>
+<table>
+    <tr>
+        <th>Machine model</th>
+        <th>Description</th>
+        <th>Tasks</th>
+        <th>Actions</th>
+    </tr>
+    {% for machine in machines %}
+        <tr>
+            <td>{{ machine.machine_model }}</td>
+            <td>{{ machine.description }}</td>
+            <td>
+                {% for task in machine.task_set.all %}
+                    <li>{{ task.name }}</li>
+                {% endfor %}
+            </td>
+            <td>
+                <button type="button">
+                <a href="http://localhost:8000/edit-machine/{{ machine.id }}">Edit</a>
+                </button>
+                <button type="button">
+                <a href="http://localhost:8000/delete-machine/{{ machine.id }}/">Delete</a>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button>
+</body>
+</html>
