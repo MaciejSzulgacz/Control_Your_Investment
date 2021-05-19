@@ -50,6 +50,14 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('base')
 
+    def get_form(self):
+        form = super(TaskUpdateView, self).get_form()
+        form.fields['start_date'].widget = SelectDateWidget()
+        form.fields['finish_date'].widget = SelectDateWidget()
+        form.fields['finish_date'].required = False
+        form.fields['machine'].required = False
+        return form
+
 
 class MachineCreateView(CreateView):
     model = Machine
@@ -116,7 +124,7 @@ class LogoutView(RedirectView):
 class ImageCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Image
-    fields = ['task', 'image']
+    fields = ['task', 'upload']
     success_url = reverse_lazy('add-image')
 
 
