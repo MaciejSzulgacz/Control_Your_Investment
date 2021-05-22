@@ -1,5 +1,5 @@
 import pytest
-from .models import Machine, Person, Task
+from .models import Machine, Person
 
 
 @pytest.mark.django_db
@@ -50,21 +50,3 @@ def test_delete_person(client, person):
     response = client.post(f'/delete-person/{person.pk}',)
     assert Person.objects.get(full_name=person.full_name)
     assert response.status_code == 301
-
-
-
-# @pytest.mark.django_db
-# def test_add_task(client):
-#     Person.objects.create(full_name='Michał Lewandowski', position='Construction Manager'),
-#     person_pk = Person.objects.get(full_name='Michał Lewandowski').pk
-#     Machine.objects.create(machine_model='Excavator', description='Machine for excavation'),
-#     machine_pk = Machine.objects.get(machine_model='Excavator').pk
-#     response = client.post('/add-task/',
-#                            {'name': 'Backfilling',
-#                             'start_date': (2020, 5, 8),
-#                             'finish_date': (2020, 6, 10),
-#                             'person': person_pk,
-#                             'machine': machine_pk,
-#                             'done': 'false'})
-#     assert Task.objects.get(name='Backfilling')
-#     assert response.status_code == 302

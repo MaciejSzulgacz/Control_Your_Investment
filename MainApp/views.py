@@ -1,14 +1,15 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.widgets import SelectDateWidget
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from .models import Machine, Person, Task, Image
 from django.views.generic import CreateView, FormView, UpdateView, RedirectView
-from django.forms.widgets import SelectDateWidget
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import LoginForm
+from .models import Machine, Person, Task, Image
 
 
+# View of tasks
 class BaseView(View):
     template_name = "MainApp/Base_form.html"
 
@@ -19,6 +20,7 @@ class BaseView(View):
         return render(request, self.template_name, {"tasks": tasks, "persons": persons, "machines": machines})
 
 
+# Task creating
 class TaskCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Task
@@ -34,6 +36,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return form
 
 
+# Task deleting
 class TaskDeleteView(LoginRequiredMixin, View):
     login_url = '/login/'
 
@@ -43,6 +46,7 @@ class TaskDeleteView(LoginRequiredMixin, View):
         return redirect("/")
 
 
+# Task updating
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = Task
@@ -59,19 +63,22 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
         return form
 
 
+# Machine creating
 class MachineCreateView(CreateView):
     model = Machine
     fields = ['machine_model', 'description']
     success_url = reverse_lazy('add-machine')
 
 
+# Machine deleting
 class MachineDeleteView(View):
     def get(self, request, my_id, *args, **kwargs):
         machine = Machine.objects.get(id=my_id)
         machine.delete()
-        return redirect("/")
+        return redirect("/machine-list/")
 
 
+# Machine updating
 class MachineUpdateView(UpdateView):
     model = Machine
     fields = ['machine_model', 'description']
@@ -79,19 +86,22 @@ class MachineUpdateView(UpdateView):
     success_url = reverse_lazy('base')
 
 
+# Person creating
 class PersonCreateView(CreateView):
     model = Person
     fields = ['full_name', 'position']
     success_url = reverse_lazy('add-person')
 
 
+# Person deleting
 class PersonDeleteView(View):
     def get(self, request, my_id, *args, **kwargs):
         person = Person.objects.get(id=my_id)
         person.delete()
-        return redirect("/")
+        return redirect("/person-list/")
 
 
+# Person updating
 class PersonUpdateView(UpdateView):
     model = Person
     fields = ['full_name', 'position']
@@ -99,6 +109,7 @@ class PersonUpdateView(UpdateView):
     success_url = reverse_lazy('base')
 
 
+# Login
 class LoginView(FormView):
     form_class = LoginForm
     template_name = "MainApp/login.html"
@@ -113,6 +124,7 @@ class LoginView(FormView):
         return super().form_valid(form)
 
 
+# Logout
 class LogoutView(RedirectView):
     url = reverse_lazy('base')
 
@@ -121,6 +133,7 @@ class LogoutView(RedirectView):
         return super().get(request)
 
 
+# Image adding
 class ImageCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     model = Image
@@ -128,6 +141,7 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('add-image')
 
 
+# Details of tasks
 class DetailsTaskView(View):
     template_name = 'MainApp/details_task.html'
 
@@ -136,6 +150,7 @@ class DetailsTaskView(View):
         return render(request, self.template_name, {"task": task})
 
 
+# List of persons
 class PersonListView(View):
     template_name = "MainApp/Person_list.html"
 
@@ -144,6 +159,7 @@ class PersonListView(View):
         return render(request, self.template_name, {"persons": persons})
 
 
+# List of machines
 class MachineListView(View):
     template_name = "MainApp/Machine_list.html"
 

@@ -38,7 +38,6 @@ tr:nth-child(even) {
         <td>No.</td>
         <th>Machine model</th>
         <th>Description</th>
-        <th>Tasks</th>
         <th>Actions</th>
     </tr>
     {% for machine in machines %}
@@ -47,21 +46,16 @@ tr:nth-child(even) {
             <td>{{ machine.machine_model }}</td>
             <td>{{ machine.description }}</td>
             <td>
-                {% for task in machine.task_set.all %}
-                    <li>{{ task.name }}</li>
-                {% endfor %}
-            </td>
-            <td>
                 <button type="button">
-                <a href="http://localhost:8000/edit-machine/{{ machine.id }}">Edit</a>
+                <a href="/edit-machine/{{ machine.id }}">Edit</a>
                 </button>
                 <button type="button">
-                <a href="http://localhost:8000/delete-machine/{{ machine.id }}/">Delete</a>
+                <a href="/delete-machine/{{ machine.id }}/">Delete</a>
                 </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<br><button type="button"><a href="http://localhost:8000/add-machine/">Add Machine</a></button>
+<br><button type="button"><a href="/add-machine/">Add Machine</a></button>
 </body>
 </html>

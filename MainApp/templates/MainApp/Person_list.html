@@ -30,9 +30,9 @@ tr:nth-child(even) {
             <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
         {% endif %}
     </header>
-<button type="button"><a href="http://localhost:8000">List of tasks</a></button>
-<button type="button"><a href="http://localhost:8000/person-list/">List of persons</a></button>
-<button type="button"><a href="http://localhost:8000/machine-list/">List of machines</a></button><br><br>
+<button type="button"><a href="/">List of tasks</a></button>
+<button type="button"><a href="/person-list/">List of persons</a></button>
+<button type="button"><a href="/machine-list/">List of machines</a></button><br><br>
 <table>
     <tr>
         <th>No.</th>
@@ -48,20 +48,20 @@ tr:nth-child(even) {
             <td>{{ person.position }}</td>
             <td>
                 {% for task in person.task_set.all %}
-                    <li><a href="http://localhost:8000/task-details/{{ task.id }}">{{ task.name }}</a></li>
+                    <li><a href="/task-details/{{ task.id }}">{{ task.name }}</a></li>
                 {% endfor %}
             </td>
             <td>
                 <button type="button">
-                <a href="http://localhost:8000/edit-person/{{ person.id }}">Edit</a>
+                <a href="/edit-person/{{ person.id }}">Edit</a>
                 </button>
                 <button type="button">
-                <a href="http://localhost:8000/delete-person/{{ person.id }}/">Delete</a>
+                <a href="/delete-person/{{ person.id }}/">Delete</a>
                 </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<br><button type="button"><a href="http://localhost:8000/add-person/">Add Person</a></button><br><br>
+<br><button type="button"><a href="/add-person/">Add Person</a></button><br><br>
 </body>
 </html>

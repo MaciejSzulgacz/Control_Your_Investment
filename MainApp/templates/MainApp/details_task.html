@@ -17,6 +17,6 @@
     {% for image in task.image_set.all %}
         <img src="{{ media_url }}{{ image.upload.url }}" width="200" height="200">
     {% endfor %}
-    <br><br><button type="button"><a href="http://localhost:8000">List of tasks</a></button><br>
+    <br><br><button type="button"><a href="/">List of tasks</a></button><br>
 </body>
 </html>

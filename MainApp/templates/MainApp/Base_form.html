@@ -30,9 +30,9 @@ tr:nth-child(even) {
             <a href="{% url 'login' %}">Zaloguj się.</a><br><br>
         {% endif %}
     </header>
-<button type="button"><a href="http://localhost:8000">List of tasks</a></button>
-<button type="button"><a href="http://localhost:8000/person-list/">List of persons</a></button>
-<button type="button"><a href="http://localhost:8000/machine-list/">List of machines</a></button><br><br>
+<button type="button"><a href="/">List of tasks</a></button>
+<button type="button"><a href="/person-list/">List of persons</a></button>
+<button type="button"><a href="/machine-list/">List of machines</a></button><br><br>
 <table>
     <tr>
         <th>No.</th>
@@ -47,7 +47,7 @@ tr:nth-child(even) {
     {% for task in tasks %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td><a href="http://localhost:8000/task-details/{{ task.id }}">{{ task.name }}</a></td>
+            <td><a href="/task-details/{{ task.id }}">{{ task.name }}</a></td>
             <td>{{ task.start_date }}</td>
             <td>{{ task.finish_date }}</td>
             <td>{{ task.person.full_name }}</td>
@@ -59,16 +59,16 @@ tr:nth-child(even) {
             <td>{{ task.done }}</td>
             <td>
                 <button type="button">
-                <a href="http://localhost:8000/edit-task/{{ task.id }}">Edit</a>
+                <a href="/edit-task/{{ task.id }}">Edit</a>
                 </button>
                 <button type="button">
-                <a href="http://localhost:8000/delete-task/{{ task.id }}/">Delete</a>
+                <a href="/delete-task/{{ task.id }}/">Delete</a>
                 </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<br><button type="button"><a href="http://localhost:8000/add-task/">Add Task</a></button>
-<button type="button"><a href="http://localhost:8000/add-image">Add Image</a></button><br><br>
+<br><button type="button"><a href="/add-task/">Add Task</a></button>
+<button type="button"><a href="/add-image">Add Image</a></button><br><br>
 </body>
 </html>
