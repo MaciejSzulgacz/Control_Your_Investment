@@ -2,7 +2,7 @@
 
 ### Introduction ###
 
-The project allows you to manage conference rooms. 
+A project that allows you to manage a construction investment. 
 It was created in order to improve the skills of the Django framework.
 
 ### Technology stack ###
